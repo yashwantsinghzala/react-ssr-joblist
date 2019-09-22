@@ -9,22 +9,31 @@ import Typography from "@material-ui/core/Typography";
 
 import { jobTypes } from "../../utils/constants";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    maxWidth: 360,
-    backgroundColor: "#e2e2e2"
+const useStyles = makeStyles({
+  heading: {
+    padding: "15px",
+    textTransform: "uppercase"
   },
-  block: {
-    display: "block"
+  description: {
+    display: "block",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis"
+  },
+  noPadding: {
+    padding: 0
   }
-}));
+});
 
 const JobList = ({ jobs }) => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <List>
+    <Fragment>
+      <Typography variant="h4" component="h2" className={classes.heading}>
+        Current Jobs
+      </Typography>
+      <List className={classes.noPadding}>
+        <Divider />
         {jobs.map((job, index) => (
           <Fragment key={index}>
             <ListItem button component={Link} to={`/${job.id}`}>
@@ -35,7 +44,6 @@ const JobList = ({ jobs }) => {
                     <Typography
                       component="span"
                       variant="body2"
-                      className={classes.inline}
                       color="textPrimary"
                     >
                       Job Type:
@@ -44,7 +52,7 @@ const JobList = ({ jobs }) => {
                     <Typography
                       component="span"
                       variant="body2"
-                      className={classes.block}
+                      className={classes.description}
                       color="textSecondary"
                     >
                       {job.description}
@@ -57,7 +65,7 @@ const JobList = ({ jobs }) => {
           </Fragment>
         ))}
       </List>
-    </div>
+    </Fragment>
   );
 };
 

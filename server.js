@@ -22,10 +22,13 @@ app.get("*", (req, res) => {
     </StaticRouter>
   );
   const html = `<html>
-  <head></head>
-  <body>
-  <div id='root'>${content}</div>
-     </body>`;
+  <head>
+    <title>SSR Jobs</title>
+    </head>
+    <body>
+    <div id='root'>${content}</div>
+    <script type="text/javascript" src="client_bundle.js"></script>
+  </body>`;
   res.send(html);
 });
-app.listen(PORT, () => console.log("dfjosdjflfdsj"));
+app.listen(PORT, () => console.log("Server started!"));
