@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { find } from "lodash";
+import { find, get } from "lodash";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -10,9 +10,15 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 
 import { jobTypes } from "../../utils/constants";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    borderBottom: "1px dashed rgba(0,0,0,0.12)"
+    borderBottom: "1px dashed rgba(0,0,0,0.12)",
+    paddingLeft: 0,
+    paddingRight: 0
+  },
+  noPadding: {
+    paddingLeft: 0,
+    paddingRight: 0
   },
   homeButton: {
     textDecoration: "none",
@@ -21,10 +27,10 @@ const useStyles = makeStyles({
     padding: "2px 10px",
     borderRadius: "2px",
     marginBottom: "10px",
-    color: "#272727",
+    color: get(theme, "palette.primary.main"),
     "&:hover": {
-      color: "#F2F2F2",
-      background: "#272727"
+      color: get(theme, "palette.background.default"),
+      background: get(theme, "palette.primary.main")
     }
   },
   svgHome: {
@@ -34,8 +40,11 @@ const useStyles = makeStyles({
     verticalAlign: "middle",
     textTransform: "uppercase",
     marginLeft: "5px"
+  },
+  noBoxShadow: {
+    boxShadow: "none"
   }
-});
+}));
 
 const CardDetail = props => {
   const classes = useStyles();
@@ -52,22 +61,28 @@ const CardDetail = props => {
         </SvgIcon>
         <span className={classes.homeText}>Home</span>
       </Link>
-      <Card>
+      <Card className={classes.noBoxShadow}>
         <CardHeader
           classes={classes}
-          title={jobData.title}
+          title={jobData && jobData.title}
           subheader={
             <Fragment>
               <Typography component="span" variant="body2" color="textPrimary">
                 Job Type:
               </Typography>
-              {jobTypes[jobData.employmentType]}
+              <Typography
+                component="span"
+                variant="body2"
+                color="textSecondary"
+              >
+                {jobTypes[jobData && jobData.employmentType]}
+              </Typography>
             </Fragment>
           }
         />
-        <CardContent>
+        <CardContent className={classes.noPadding}>
           <Typography variant="body2" color="textSecondary" component="p">
-            {jobData.description}
+            {jobData && jobData.description}
           </Typography>
         </CardContent>
       </Card>

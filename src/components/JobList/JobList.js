@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { get } from "lodash";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -9,10 +10,11 @@ import Typography from "@material-ui/core/Typography";
 
 import { jobTypes } from "../../utils/constants";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   heading: {
     padding: "15px",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
+    color: get(theme, "palette.primary.main")
   },
   description: {
     display: "block",
@@ -23,7 +25,7 @@ const useStyles = makeStyles({
   noPadding: {
     padding: 0
   }
-});
+}));
 
 const JobList = ({ jobs }) => {
   const classes = useStyles();
@@ -36,9 +38,9 @@ const JobList = ({ jobs }) => {
         <Divider />
         {jobs.map((job, index) => (
           <Fragment key={index}>
-            <ListItem button component={Link} to={`/${job.id}`}>
+            <ListItem button component={Link} to={`/${job && job.id}`}>
               <ListItemText
-                primary={job.title}
+                primary={job && job.title}
                 secondary={
                   <Fragment>
                     <Typography
@@ -48,14 +50,20 @@ const JobList = ({ jobs }) => {
                     >
                       Job Type:
                     </Typography>
-                    {jobTypes[job.employmentType]}
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      color="textSecondary"
+                    >
+                      {jobTypes[job && job.employmentType]}
+                    </Typography>
                     <Typography
                       component="span"
                       variant="body2"
                       className={classes.description}
                       color="textSecondary"
                     >
-                      {job.description}
+                      {job && job.description}
                     </Typography>
                   </Fragment>
                 }
