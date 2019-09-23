@@ -34,11 +34,16 @@ const JobList = ({ jobs }) => {
       <Typography variant="h4" component="h2" className={classes.heading}>
         Current Jobs
       </Typography>
-      <List className={classes.noPadding}>
+      <List className={classes.noPadding} data-test={"job-list"}>
         <Divider />
         {jobs.map((job, index) => (
           <Fragment key={index}>
-            <ListItem button component={Link} to={`/${job && job.id}`}>
+            <ListItem
+              data-test={"job-item"}
+              button
+              component={Link}
+              to={`/${job && job.id}`}
+            >
               <ListItemText
                 primary={job && job.title}
                 secondary={

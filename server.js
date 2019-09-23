@@ -5,8 +5,6 @@ import ReactDomServer from "react-dom/server";
 import { ServerStyleSheets, ThemeProvider } from "@material-ui/styles";
 import bodyParser from "body-parser";
 import { StaticRouter } from "react-router";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
 import App from "./src/AppContainer";
 import theme from "./src/theme";
 
@@ -39,4 +37,6 @@ app.get("*", (req, res) => {
   </body>`;
   res.send(html);
 });
-app.listen(PORT, () => console.log("Server started!"));
+app.listen(PORT, () =>
+  console.log("Server started!s it's running on localhost:4000")
+);
