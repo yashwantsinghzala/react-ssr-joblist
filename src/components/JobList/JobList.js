@@ -1,31 +1,13 @@
 import React, { Fragment } from "react";
-import { get } from "lodash";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
+import PropTypes from "prop-types";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
-
 import { jobTypes } from "../../utils/constants";
-
-const useStyles = makeStyles(theme => ({
-  heading: {
-    padding: "15px",
-    textTransform: "uppercase",
-    color: get(theme, "palette.primary.main")
-  },
-  description: {
-    display: "block",
-    overflow: "hidden",
-    whiteSpace: "nowrap",
-    textOverflow: "ellipsis"
-  },
-  noPadding: {
-    padding: 0
-  }
-}));
+import { useStyles } from "./style";
 
 const JobList = ({ jobs }) => {
   const classes = useStyles();
@@ -80,6 +62,14 @@ const JobList = ({ jobs }) => {
       </List>
     </Fragment>
   );
+};
+
+JobList.propTypes = {
+  jobs: PropTypes.array
+};
+
+JobList.defaultProps = {
+  jobs: []
 };
 
 export default JobList;

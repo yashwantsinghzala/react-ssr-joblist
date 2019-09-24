@@ -1,54 +1,18 @@
 import React, { Fragment } from "react";
-import { find, get } from "lodash";
+import { find } from "lodash";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import SvgIcon from "@material-ui/core/SvgIcon";
-
+import { useStyles, rootStyles } from "./style";
 import { jobTypes } from "../../utils/constants";
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    borderBottom: "1px dashed rgba(0,0,0,0.12)",
-    paddingLeft: 0,
-    paddingRight: 0
-  },
-  noPadding: {
-    paddingLeft: 0,
-    paddingRight: 0
-  },
-  homeButton: {
-    textDecoration: "none",
-    display: "inline-block",
-    border: "1px solid",
-    padding: "2px 10px",
-    borderRadius: "2px",
-    marginBottom: "10px",
-    color: get(theme, "palette.primary.main"),
-    "&:hover": {
-      color: get(theme, "palette.background.default"),
-      background: get(theme, "palette.primary.main")
-    }
-  },
-  svgHome: {
-    verticalAlign: "middle"
-  },
-  homeText: {
-    verticalAlign: "middle",
-    textTransform: "uppercase",
-    marginLeft: "5px"
-  },
-  noBoxShadow: {
-    boxShadow: "none"
-  }
-}));
 
 const JobDetail = props => {
   const classes = useStyles();
+  const headerClass = rootStyles();
   const jobId = props.match.params.jobId;
   const jobData = find(props.jobs, job => {
     return job.id === jobId;
@@ -64,7 +28,7 @@ const JobDetail = props => {
       </Link>
       <Card className={classes.noBoxShadow}>
         <CardHeader
-          classes={classes}
+          classes={headerClass}
           title={jobData && jobData.title}
           subheader={
             <Fragment>
@@ -91,7 +55,7 @@ const JobDetail = props => {
   );
 };
 
-JobDetail.PropTypes = {
+JobDetail.propTypes = {
   jobId: PropTypes.number,
   jobs: PropTypes.array
 };
